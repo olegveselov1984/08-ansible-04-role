@@ -37,6 +37,10 @@
 10. Выложите playbook в репозиторий.
 11. В ответе дайте ссылки на оба репозитория с roles и одну ссылку на репозиторий с playbook.
 
+https://github.com/olegveselov1984/lighthouse-role/tree/HW01#
+https://github.com/olegveselov1984/vector-role/tree/HW01
+https://github.com/olegveselov1984/08-ansible-04-role/tree/HW01
+
 ---
 
 ### Как оформить решение задания
