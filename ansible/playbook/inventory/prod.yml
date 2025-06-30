@@ -1,0 +1,31 @@
+---
+clickhouse:
+  hosts:
+    clickhouse-01:
+      ansible_host: 158.160.44.98
+      ansible_connection: ssh
+      ansible_user: ubuntu
+#      ansible_ssh_private_key_file: ~/.ssh/id_ed25519
+      ansible_ssh_private_key_file: /etc/ssh/id_ed25519
+#      ansible_connection: docker
+#      ansible_become_method: su
+
+vector:
+  hosts:
+    vector-01:
+      ansible_host: 46.21.247.145
+      ansible_connection: ssh
+      ansible_user: ubuntu
+#      ansible_ssh_private_key_file: ~/.ssh/id_ed25519
+      ansible_ssh_private_key_file: /etc/ssh/id_ed25519
+#      ansible_connection: docker
+#      ansible_become_method: su
+
+lighthouse:
+  hosts:
+    lighthouse-01:
+      ansible_host: 158.160.48.154
+      ansible_connection: ssh
+      ansible_user: ubuntu
+#      ansible_ssh_private_key_file: ~/.ssh/id_ed25519
+      ansible_ssh_private_key_file: /etc/ssh/id_ed25519
