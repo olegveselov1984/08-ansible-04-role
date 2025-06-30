@@ -2,62 +2,8 @@
 - name: Install Clickhouse
   hosts: clickhouse
   become: true
-  handlers:
-    - name: Start clickhouse service
-      ansible.builtin.service:
-        name: clickhouse-server
-        state: started
-      tags:
-        - clickhouse
-        - start service
-  tasks:
-    - block: #Нужен, поскольку есть "rescue - что не отработало в 01 будет работать в 02"
-       - name: Get clickhouse distrib01
-         ansible.builtin.get_url:
-            url: "https://packages.clickhouse.com/rpm/stable/{{ item }}-{{ clickhouse_version }}.noarch.rpm"
-            dest: "./{{ item }}-{{ clickhouse_version }}.rpm"
-            mode: '0644' # Права выжны!
-         with_items: "{{ clickhouse_packages }}"
-         tags:
-            - clickhouse
-            - distr
-      rescue:
-       - name: Get clickhouse distrib02
-         ansible.builtin.get_url:
-            url: "https://packages.clickhouse.com/rpm/stable/clickhouse-common-static-{{ clickhouse_version }}.x86_64.rpm"
-            dest: "./clickhouse-common-static-{{ clickhouse_version }}.rpm"
-            mode: '0644' # Права выжны!
-         tags:
-            - clickhouse
-            - distr
-
-       - name: Install clickhouse packages
-         become: true
-         ansible.builtin.yum:
-           name:
-            - clickhouse-common-static-{{ clickhouse_version }}.rpm
-            - clickhouse-client-{{ clickhouse_version }}.rpm
-            - clickhouse-server-{{ clickhouse_version }}.rpm
-         notify: Start clickhouse service
-         tags:
-            - clickhouse
-            - distr
-
-       - name: Flush handlers
-         ansible.builtin.meta: flush_handlers
-         tags:
-            - clickhouse
-            - start service
-
-       - name: Create database
-         ansible.builtin.command: "clickhouse-client -q 'create database logs;'"
-         register: create_db
-         failed_when: create_db.rc != 0 and create_db.rc !=82
-         changed_when: create_db.rc == 0
-         tags:
-            - clickhouse
-            - db
-
+  roles:
+    - clickhouse
 
 - name: Install Vector
   hosts: vector
